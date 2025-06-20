@@ -24,14 +24,14 @@ db_name = os.getenv("POSTGRES_DB")
 engine = create_engine(f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}")
 
 
-if os.getenv("RENDER") != "true":
-    # Entorno local: usar CSV
-    ban = pd.read_csv("df_ban_inmet.csv")
-    hist = pd.read_csv("df_hist_inmet.csv")
-else:
+if os.getenv("RENDER", "").lower() == "true":
     # Entorno producción: usar PostgreSQL
     ban = pd.read_sql("SELECT * FROM df_ban_inmet", engine)
     hist = pd.read_sql("SELECT * FROM df_hist_inmet", engine)
+else:
+    # Entorno local: usar CSV
+    ban = pd.read_csv("df_ban_inmet.csv")
+    hist = pd.read_csv("df_hist_inmet.csv")
 
 
 ban = ban.rename(columns={"data_hora": "FECHA_HORA", "RADIACAO GLOBAL(Kj/m²)": "RADIACION"})
