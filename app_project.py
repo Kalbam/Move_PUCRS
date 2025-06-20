@@ -25,11 +25,11 @@ engine = create_engine(f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db
 
 
 if os.getenv("RENDER") != "true":
-    # Intentar cargar desde CSV (entorno local)
+    # Entorno local: usar CSV
     ban = pd.read_csv("df_ban_inmet.csv")
     hist = pd.read_csv("df_hist_inmet.csv")
 else:
-    # Cargar desde PostgreSQL
+    # Entorno producción: usar PostgreSQL
     ban = pd.read_sql("SELECT * FROM df_ban_inmet", engine)
     hist = pd.read_sql("SELECT * FROM df_hist_inmet", engine)
 
