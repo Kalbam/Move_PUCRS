@@ -24,8 +24,14 @@ db_name = os.getenv("POSTGRES_DB", "radiation_inmet")
 engine = create_engine(f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}")
 
 
-ban = pd.read_sql("SELECT * FROM df_ban_inmet", engine)
-hist = pd.read_sql("SELECT * FROM df_hist_inmet", engine)
+if os.getenv("RENDER") != "true":
+    # Intentar cargar desde CSV (entorno local)
+    ban = pd.read_csv("df_ban_inmet.csv")
+    hist = pd.read_csv("df_hist_inmet.csv")
+else:
+    # Cargar desde PostgreSQL
+    ban = pd.read_sql("SELECT * FROM df_ban_inmet", engine)
+    hist = pd.read_sql("SELECT * FROM df_hist_inmet", engine)
 
 # Limpieza y estandarización
 ban = ban.rename(columns={"data_hora": "FECHA_HORA", "RADIACAO GLOBAL(Kj/m²)": "RADIACION"})
