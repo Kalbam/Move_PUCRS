@@ -15,11 +15,11 @@ app.title = "Dashboard del Proyecto Final "
 server = app.server
 
 # Conexión a PostgreSQL
-db_user = os.getenv("POSTGRES_USER", "postgres")
-db_pass = os.getenv("POSTGRES_PASSWORD", "KeylaAlba572")
-db_host = os.getenv("POSTGRES_HOST", "db")  # Cambiar a 'db' si usas docker-compose 
-db_port = os.getenv("POSTGRES_PORT", "5432")
-db_name = os.getenv("POSTGRES_DB", "radiation_inmet")
+db_user = os.getenv("POSTGRES_USER")
+db_pass = os.getenv("POSTGRES_PASSWORD")
+db_host = os.getenv("POSTGRES_HOST")  
+db_port = os.getenv("POSTGRES_PORT")
+db_name = os.getenv("POSTGRES_DB")
 
 engine = create_engine(f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}")
 
@@ -33,14 +33,14 @@ else:
     ban = pd.read_sql("SELECT * FROM df_ban_inmet", engine)
     hist = pd.read_sql("SELECT * FROM df_hist_inmet", engine)
 
-# Limpieza y estandarización
+
 ban = ban.rename(columns={"data_hora": "FECHA_HORA", "RADIACAO GLOBAL(Kj/m²)": "RADIACION"})
 hist = hist.rename(columns={"FECHA_HORA": "FECHA_HORA", "RADIACAO_GLOBAL": "RADIACION"})
 
 ban["FECHA_HORA"] = pd.to_datetime(ban["FECHA_HORA"])
 hist["FECHA_HORA"] = pd.to_datetime(hist["FECHA_HORA"])
 
-# FUNCIÓN DE LIMPIEZA GLOBAL
+
 def limpieza_global(df, col_rad):
     df[col_rad] = (
         df[col_rad]
@@ -56,7 +56,7 @@ def limpieza_global(df, col_rad):
     df.loc[df[col_rad] < 0, col_rad] = pd.NA
     return df
 
-# APLICAR LIMPIEZA UNA SOLA VEZ
+
 ban  = limpieza_global(ban,  "RADIACION")
 hist = limpieza_global(hist, "RADIACION")
 
@@ -308,9 +308,7 @@ app.layout = dbc.Container(
     fluid=True
 )
 
-# ═══════════════════════════════════════════════════════════════════════
-# CALLBACK  • limpia, agrupa y dibuja
-# ═══════════════════════════════════════════════════════════════════════
+
 
 @app.callback(
     [
@@ -335,7 +333,7 @@ app.layout = dbc.Container(
 )
 def actualizar_panel(ciudad_ban, ciudad_hist_base, ciudad_hist_ciudad):
 
-    # Los DataFrames ya están limpios y listos
+  
     ban_clean  = ban.copy()
     hist_clean = hist.copy()
 
@@ -345,16 +343,16 @@ def actualizar_panel(ciudad_ban, ciudad_hist_base, ciudad_hist_ciudad):
         nulos = df["RADIACION"].isna().sum()
         return f"{tot:,} registros | {nulos / tot * 100:,.1f}% nulos"
 
-    # BAN seleccionado
+ 
     df_b = ban_clean[ban_clean["CIUDAD"] == ciudad_ban]
     indicador_b = indicador(df_b)
 
-    # HIST por BASE (sin altitud)  ─ se extrae la base textual
+    
     hist_clean["BASE"] = hist_clean["CIUDAD"].str.extract(r"^([A-Z\s]+)")[0].str.strip()
     df_h_base = hist_clean[hist_clean["BASE"] == ciudad_hist_base]
     indicador_h = indicador(df_h_base)
 
-    # HIST por ciudad-estación (con altitud)
+   
     df_h_ciudad = hist_clean[hist_clean["CIUDAD"] == ciudad_hist_ciudad]
     indicador_h_ciudad = indicador(df_h_ciudad)
 
@@ -401,7 +399,7 @@ def actualizar_panel(ciudad_ban, ciudad_hist_base, ciudad_hist_ciudad):
                           title="% de valores nulos por ciudad base (HIST)")\
                     .update_layout(yaxis_title="", xaxis_title="Porcentaje (%)")
 
-    # HIST  – por ciudad-estación (con altitud)
+   
     df_nulos_hist_ciudad = (
            hist_clean.groupby("CIUDAD", group_keys=False)["RADIACION"]\
            .apply(lambda s: s.isna().mean() * 100)
@@ -414,7 +412,7 @@ def actualizar_panel(ciudad_ban, ciudad_hist_base, ciudad_hist_ciudad):
                                  title="% de valores nulos por estación completa (HIST)")\
                            .update_layout(yaxis_title="", xaxis_title="Porcentaje (%)")
 
-    # >>> 4)  Devolver todo al dashboard ----------------------------------
+   
     return (
         fig_ban, fig_hist, fig_hist_ciudad,
         fig_bar_ban, fig_bar_hist, fig_bar_hist_ciudad,
@@ -422,7 +420,7 @@ def actualizar_panel(ciudad_ban, ciudad_hist_base, ciudad_hist_ciudad):
     )
     
     
-# Ejecutar la app
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8050))
     app.run_server(debug=False, host="0.0.0.0", port=port)
