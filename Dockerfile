@@ -9,8 +9,8 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 COPY app_project.py app_project.py
 COPY load_data_to_postgres.py load_data_to_postgres.py
-COPY df_Ban_Inmet.csv df_Ban_Inmet.csv
-COPY df_Hist_Inmet.csv df_Hist_Inmet.csv
+# COPY df_Ban_Inmet.csv df_Ban_Inmet.csv
+# COPY df_Hist_Inmet.csv df_Hist_Inmet.csv
 
 # Instalar dependencias
 RUN pip install --no-cache-dir -r requirements.txt
