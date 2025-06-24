@@ -32,14 +32,23 @@ def serve_image(image_name):
 # db_port = os.getenv("POSTGRES_PORT", "5432")
 # db_name = os.getenv("POSTGRES_DB", "radiation_inmet")
 # Conexión a PostgreSQL render
-db_user = os.environ["POSTGRES_USER"]
-db_pass = os.environ["POSTGRES_PASSWORD"]
-db_host = os.environ["POSTGRES_HOST"]
-db_port = os.environ["POSTGRES_PORT"]
-db_name = os.environ["POSTGRES_DB"]
+# db_user = os.environ["POSTGRES_USER"]
+# db_pass = os.environ["POSTGRES_PASSWORD"]
+# db_host = os.environ["POSTGRES_HOST"]
+# db_port = os.environ["POSTGRES_PORT"]
+# db_name = os.environ["POSTGRES_DB"]
 
-engine = create_engine(f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}")
+# engine = create_engine(f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}")
+db_user = "radiation_inmet_db_v1_user"
+db_password = "5EshSNxUVp7iJIEX8ZLFA7miiGgcQeOJ"
+db_host = "dpg-d1d2ptqdbo4c73cb2j00-a.oregon-postgres.render.com"
+db_port = "5432"
+db_name = "radiation_inmet_db_v1"
 
+#  Conexión segura con SSL
+engine = create_engine(
+    f"postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}?sslmode=require"
+)
 
 ban = pd.read_sql("SELECT * FROM df_ban_inmet", engine)
 hist = pd.read_sql("SELECT * FROM df_hist_inmet", engine)
