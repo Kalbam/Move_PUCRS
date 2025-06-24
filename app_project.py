@@ -41,16 +41,17 @@ def serve_image(image_name):
 # db_name = os.environ["POSTGRES_DB"]
 
 # engine = create_engine(f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}")
-db_user = "radiation_inmet_db_v1_user"
-db_password = "5EshSNxUVp7iJIEX8ZLFA7miiGgcQeOJ"
-db_host = "dpg-d1d2ptqdbo4c73cb2j00-a.oregon-postgres.render.com"
-db_port = "5432"
-db_name = "radiation_inmet_db_v1"
+# db_user = "radiation_inmet_db_v1_user"
+# db_password = "5EshSNxUVp7iJIEX8ZLFA7miiGgcQeOJ"
+# db_host = "dpg-d1d2ptqdbo4c73cb2j00-a.oregon-postgres.render.com"
+# db_port = "5432"
+# db_name = "radiation_inmet_db_v1"
 
 #  Conexión segura con SSL
-engine = create_engine(
-    f"postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}?sslmode=require"
-)
+db_url = "postgresql://radiation_inmet_db_v1_user:5EshSNxUVp7iJIEX8ZLFA7miiGgcQeOJ@dpg-d1d2ptqdbo4c73cb2j00-a:5432/radiation_inmet_db_v1"
+
+# Crear el engine
+engine = create_engine(db_url)
 
 ban = pd.read_sql("SELECT * FROM df_ban_inmet", engine)
 hist = pd.read_sql("SELECT * FROM df_hist_inmet", engine)
