@@ -22,16 +22,16 @@
 
 # # Comando de ejecución de la app
 # CMD ["gunicorn", "-b", "0.0.0.0:8050", "app_project:server"]
+
+
+
 FROM python:3.10-slim
 
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
+COPY . .  
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# No copies archivos, se montarán con volumes
 CMD ["python", "app_project.py"]
-
-
 
