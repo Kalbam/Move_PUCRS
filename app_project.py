@@ -99,8 +99,12 @@ estados_nordeste = [
 
 
 
-with open("brazil-states.geojson", "r", encoding="utf-8") as f:
-    geojson_brasil = json.load(f)
+# with open("brazil-states.geojson", "r", encoding="utf-8") as f:
+#     geojson_brasil = json.load(f) #local
+geojson_path = os.path.join("figures", "brazil-states.geojson")
+
+with open(geojson_path, "r", encoding="utf-8") as f:
+    geojson_brasil = json.load(f) #render
 
 df_estados = pd.DataFrame({
     'Estado': estados_brasil,
