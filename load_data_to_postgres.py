@@ -20,11 +20,11 @@
 # df_hist.to_sql("df_hist_inmet", engine, if_exists="replace", index=False)
 
 # print(" Datos cargados con éxito en PostgreSQL.")
-db_user = "postgres"
-db_password = "KeylaAlba572"
+db_user = "radiation_inmet_db_v1_user"
+db_password = "5EshSNxUVp7iJIEX8ZLFA7miiGgcQeOJ"
 db_host = "dpg-d1d2ptqdbo4c73cb2j00-a.oregon-postgres.render.com"
 db_port = "5432"
-db_name = "radiation_inmet"
+db_name = "radiation_inmet_db_v1"
 
 # Crear motor de conexión a Render
 engine = create_engine(
