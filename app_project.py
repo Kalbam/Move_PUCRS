@@ -21,6 +21,8 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 app.title = "Forecasting Solar Radiation Using a Stacked Wavelet Transform-Based Machine Learning Model"
 server = app.server
 
+
+
 @server.route("/figures/<path:image_name>")
 def serve_image(image_name):
     return send_from_directory(os.path.join(os.getcwd(), "figures"), image_name)
