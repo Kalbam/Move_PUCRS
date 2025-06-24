@@ -25,12 +25,18 @@ server = app.server
 def serve_image(image_name):
     return send_from_directory(os.path.join(os.getcwd(), "figures"), image_name)
 
-# Conexión a PostgreSQL
-db_user = os.getenv("POSTGRES_USER", "postgres")
-db_pass = os.getenv("POSTGRES_PASSWORD", "KeylaAlba572")
-db_host = os.getenv("POSTGRES_HOST", "db")  # Cambiar a 'db' si usas docker-compose 
-db_port = os.getenv("POSTGRES_PORT", "5432")
-db_name = os.getenv("POSTGRES_DB", "radiation_inmet")
+# Conexión a PostgreSQL 
+# db_user = os.getenv("POSTGRES_USER", "postgres")
+# db_pass = os.getenv("POSTGRES_PASSWORD", "KeylaAlba572")
+# db_host = os.getenv("POSTGRES_HOST", "db")  
+# db_port = os.getenv("POSTGRES_PORT", "5432")
+# db_name = os.getenv("POSTGRES_DB", "radiation_inmet")
+# Conexión a PostgreSQL render
+db_user = os.environ["POSTGRES_USER"]
+db_pass = os.environ["POSTGRES_PASSWORD"]
+db_host = os.environ["POSTGRES_HOST"]
+db_port = os.environ["POSTGRES_PORT"]
+db_name = os.environ["POSTGRES_DB"]
 
 engine = create_engine(f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}")
 
