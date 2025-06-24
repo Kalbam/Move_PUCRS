@@ -1272,7 +1272,7 @@ def actualizar_panel(ciudad_ban, ciudad_hist_base, ciudad_hist_ciudad):
 # if __name__ == '__main__':
 #     port = int(os.environ.get('PORT', 8050))
 #     app.run_server(debug=False, host="0.0.0.0", port=port)
-server = app.server
+#server = app.server
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run_server(host="0.0.0.0", port=port)
