@@ -28,15 +28,15 @@ db_name = "radiation_inmet"
 
 # Crear motor de conexión a Render
 engine = create_engine(
-    f"postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+    f"postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}?sslmode=require"
 )
 
 try:
-    # Leer CSV desde la carpeta local
+    # Leer archivos locales (asegúrate que estén en la misma carpeta cuando ejecutes esto localmente)
     df_ban = pd.read_csv("df_Ban_Inmet.csv", encoding="utf-8-sig")
     df_hist = pd.read_csv("df_Hist_Inmet.csv", encoding="utf-8-sig")
 
-    # Subir a PostgreSQL (Render)
+    # Subir a PostgreSQL
     df_ban.to_sql("df_ban_inmet", engine, if_exists="replace", index=False)
     df_hist.to_sql("df_hist_inmet", engine, if_exists="replace", index=False)
 
