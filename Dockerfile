@@ -16,7 +16,7 @@
 
 # # Instalar dependencias
 # RUN pip install --no-cache-dir -r requirements.txt
-
+#RUN python load_data_to_postgres.py
 # # Exponer el puerto para Gunicorn
 # EXPOSE 8050
 
@@ -33,6 +33,7 @@ WORKDIR /app
 COPY . .  
 
 RUN pip install --no-cache-dir -r requirements.txt
+RUN python load_data_to_postgres.py
 EXPOSE 10000
 
 CMD ["python", "app_project.py"]
