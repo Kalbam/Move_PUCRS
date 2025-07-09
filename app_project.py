@@ -214,7 +214,7 @@ subtabs_metodologia = dcc.Tabs([
      
     ]),
     dcc.Tab(label='b. Data Preparation', children=[
-        html.Img(src="/figures/Train_model.png", style={
+        html.Img(src="/figures/data.png", style={
             "width": "90%",
             "marginTop": "20px",
             "border": "1px solid #ccc",
