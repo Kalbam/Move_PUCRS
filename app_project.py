@@ -192,7 +192,7 @@ fig_combined.update_layout(
 # Subpestañas de metodología
 subtabs_metodologia = dcc.Tabs([
     dcc.Tab(label='a. Model Definition', children=[
-        html.Img(src="/figures/esquema_stacked.png", style={
+        html.Img(src="/figures/ecuaciones.png", style={
             "width": "90%",
             "marginTop": "20px",
             "border": "1px solid #ccc",
@@ -202,7 +202,7 @@ subtabs_metodologia = dcc.Tabs([
         })
      
     ]),
-
+    
     dcc.Tab(label='b. Data Preparation', children=[
         html.Img(src="/figures/Train_model.png", style={
             "width": "90%",
