@@ -113,7 +113,7 @@ df_estados = pd.DataFrame({
 
 df_destacado = pd.DataFrame({
     'Estado': [estado for estado in estados_nordeste],
-    'Grupo': ['Paraíba' if estado == 'Paraíba' else 'Outro Nordeste' for estado in estados_nordeste]
+    'Grupo': ['São Luís' if estado == 'São Luís' else 'Outro Nordeste' for estado in estados_nordeste]
 })
 
 capitais = pd.DataFrame({
@@ -199,11 +199,14 @@ subtabs_metodologia = dcc.Tabs([
         ])
     ]),
     dcc.Tab(label='b. Data Preparation', children=[
-        html.H4('b. Preparación de los Datos'),
-        html.Ul([
-            html.Li('Limpieza y transformación de datos'),
-            html.Li('División del dataset en entrenamiento y prueba o validación cruzada')
-        ])
+        html.Img(src="/figures/Train_model.png", style={
+        "width": "90%",
+        "marginTop": "20px",
+        "border": "1px solid #ccc",
+        "display": "block",
+        "marginLeft": "auto",
+        "marginRight": "auto"
+    })
     ]),
     dcc.Tab(label='c. Implementation', children=[
         
