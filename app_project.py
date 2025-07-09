@@ -190,116 +190,81 @@ fig_combined.update_layout(
 
 
 # Subpestañas de metodología
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>{%title%}</title>
+        {%favicon%}
+        {%css%}
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
+
+# Subpestañas de metodología
 subtabs_metodologia = dcc.Tabs([
-    dcc.Tab(label='**a. Model Definition**', children=[
-        html.H3(" Definição do Problema a Resolver", style={'color': '#003366', 'fontWeight': 'bold'}),
+    dcc.Tab(label='a. Model Definition', children=[
+        html.H3("Definição do Problema a Resolver", style={'color': '#003366', 'fontWeight': 'bold'}),
         html.Ul([
             html.Li("Tipo de problema: Séries temporais / Regressão."),
             html.Li("Variável alvo: \\( \\text{RADIACAO\\_GLOBAL\\_IMPUTADA} \\)")
         ]),
         html.Br(),
-        html.H3(" Definição dos Modelos Utilizados", style={'color': '#003366', 'fontWeight': 'bold'}),
+        html.H3("Definição dos Modelos Utilizados", style={'color': '#003366', 'fontWeight': 'bold'}),
 
         html.H4("1. SVR - Regressão por Vetores de Suporte"),
-        dcc.Markdown(r'''
-O modelo SVR busca encontrar uma função \\( f(x) \\) tal que as previsões estejam dentro de uma tolerância \\( \\varepsilon \\) do valor real:
-
-\\[
-f(x) = \\langle w, x \\rangle + b
-\\]
-
-Sujeito a:
-
-\\[
-\\begin{cases}
-y_i - f(x_i) \\leq \\varepsilon + \\xi_i \\\\
-f(x_i) - y_i \\leq \\varepsilon + \\xi_i^*
-\\end{cases}
-\\]
-
-Onde \\( \\xi_i, \\xi_i^* \\) são variáveis de folga e \\( C \\) é um parâmetro de penalização para erros fora da margem \\( \\varepsilon \\).
-'''),
+        html.Div([
+            html.P("O modelo SVR busca encontrar uma função \\( f(x) \\) tal que as previsões estejam dentro de uma tolerância \\( \\varepsilon \\) do valor real:"),
+            html.Div("$$f(x) = \\langle w, x \\rangle + b$$"),
+            html.P("Sujeito a:"),
+            html.Div("$$\\begin{cases} y_i - f(x_i) \\leq \\varepsilon + \\xi_i \\\\ f(x_i) - y_i \\leq \\varepsilon + \\xi_i^* \\end{cases}$$"),
+            html.P("Onde \\( \\xi_i, \\xi_i^* \\) são variáveis de folga e \\( C \\) é um parâmetro de penalização para erros fora da margem \\( \\varepsilon \\).")
+        ]),
 
         html.H4("2. ANN - Rede Neural Artificial"),
-        dcc.Markdown(r'''
-Uma rede neural realiza uma transformação do tipo:
-
-\\[
-y = f\\left( \\sum_{i=1}^n w_i x_i + b \\right)
-\\]
-
-Onde:
-- \\( x_i \\): entradas,
-- \\( w_i \\): pesos,
-- \\( b \\): viés (bias),
-- \\( f \\): função de ativação (ReLU, tanh, sigmoide).
-
-Durante o treinamento, minimiza-se uma função de perda, por exemplo:
-
-\\[
-\\text{MSE} = \\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2
-\\]
-'''),
+        html.Div([
+            html.P("Uma rede neural realiza uma transformação do tipo:"),
+            html.Div("$$y = f\\left( \\sum_{i=1}^n w_i x_i + b \\right)$$"),
+            html.P("Durante o treinamento, minimiza-se uma função de perda, por exemplo:"),
+            html.Div("$$\\text{MSE} = \\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2$$")
+        ]),
 
         html.H4("3. ARIMA - AutoRegressivo Integrado de Médias Móveis"),
-        dcc.Markdown(r'''
-O modelo ARIMA \\( (p, d, q) \\) combina autorregressão, diferenciação e média móvel:
-
-\\[
-y_t = c + \\phi_1 y_{t-1} + \\cdots + \\phi_p y_{t-p} + \\theta_1 \\varepsilon_{t-1} + \\cdots + \\theta_q \\varepsilon_{t-q} + \\varepsilon_t
-\\]
-
-Onde:
-- \\( d \\): número de diferenciações necessárias para estacionariedade,
-- \\( \\phi_i \\): coeficientes AR,
-- \\( \\theta_j \\): coeficientes MA.
-'''),
+        html.Div([
+            html.P("O modelo ARIMA \\( (p, d, q) \\) combina autorregressão, diferenciação e média móvel:"),
+            html.Div("$$y_t = c + \\phi_1 y_{t-1} + \\cdots + \\phi_p y_{t-p} + \\theta_1 \\varepsilon_{t-1} + \\cdots + \\theta_q \\varepsilon_{t-q} + \\varepsilon_t$$")
+        ]),
 
         html.H4("4. ETS - Erro, Tendência e Sazonalidade"),
-        dcc.Markdown(r'''
-ETS decompõe a série temporal em:
-
-\\[
-Y_t = (E_t)(T_t)(S_t)
-\\quad \\text{ou} \\quad
-Y_t = E_t + T_t + S_t
-\\]
-
-Dependendo do tipo (multiplicativo ou aditivo). Um modelo ETS aditivo pode ser representado como:
-
-\\[
-\\begin{cases}
-l_t = \\alpha (y_t - s_{t-m}) + (1 - \\alpha)(l_{t-1} + b_{t-1}) \\\\
-b_t = \\beta (l_t - l_{t-1}) + (1 - \\beta)b_{t-1} \\\\
-s_t = \\gamma (y_t - l_{t-1} - b_{t-1}) + (1 - \\gamma)s_{t-m} \\\\
-\\hat{y}_{t+h} = l_t + hb_t + s_{t-m+h}
-\\end{cases}
-\\]
-'''),
+        html.Div([
+            html.P("ETS decompõe a série temporal em:"),
+            html.Div("$$Y_t = (E_t)(T_t)(S_t) \\quad \\text{ou} \\quad Y_t = E_t + T_t + S_t$$"),
+            html.Div("$$\\begin{cases} l_t = \\alpha (y_t - s_{t-m}) + (1 - \\alpha)(l_{t-1} + b_{t-1}) \\\\ b_t = \\beta (l_t - l_{t-1}) + (1 - \\beta)b_{t-1} \\\\ s_t = \\gamma (y_t - l_{t-1} - b_{t-1}) + (1 - \\gamma)s_{t-m} \\\\ \\hat{y}_{t+h} = l_t + hb_t + s_{t-m+h} \\end{cases}$$")
+        ]),
 
         html.H4("5. Prophet - Modelo de Previsão Aditivo"),
-        dcc.Markdown(r'''
-Prophet decompõe a série em:
-
-\\[
-y(t) = g(t) + s(t) + h(t) + \\varepsilon_t
-\\]
-
-Onde:
-- \\( g(t) \\): tendência (linear ou logística),
-- \\( s(t) \\): sazonalidade (modelada com séries de Fourier),
-- \\( h(t) \\): efeito de feriados,
-- \\( \\varepsilon_t \\): erro.
-
-Exemplo de componente sazonal:
-
-\\[
-s(t) = \\sum_{n=1}^{N} \\left[ a_n \\cos\\left( \\frac{2 \\pi n t}{P} \\right) + b_n \\sin\\left( \\frac{2 \\pi n t}{P} \\right) \\right]
-\\]
-''')
+        html.Div([
+            html.P("Prophet decompõe a série em:"),
+            html.Div("$$y(t) = g(t) + s(t) + h(t) + \\varepsilon_t$$"),
+            html.P("Exemplo de componente sazonal:"),
+            html.Div("$$s(t) = \\sum_{n=1}^{N} \\left[ a_n \\cos\\left( \\frac{2 \\pi n t}{P} \\right) + b_n \\sin\\left( \\frac{2 \\pi n t}{P} \\right) \\right]$$")
+        ])
     ]),
 
-    dcc.Tab(label='**b. Data Preparation**', children=[
+    dcc.Tab(label='b. Data Preparation', children=[
         html.Img(src="/figures/Train_model.png", style={
             "width": "90%",
             "marginTop": "20px",
@@ -310,7 +275,7 @@ s(t) = \\sum_{n=1}^{N} \\left[ a_n \\cos\\left( \\frac{2 \\pi n t}{P} \\right) +
         })
     ]),
 
-    dcc.Tab(label='**c. Implementation**', children=[
+    dcc.Tab(label='c. Implementation', children=[
         html.Img(src="/figures/esquema_stacked.png", style={
             "width": "90%",
             "marginTop": "20px",
@@ -321,47 +286,31 @@ s(t) = \\sum_{n=1}^{N} \\left[ a_n \\cos\\left( \\frac{2 \\pi n t}{P} \\right) +
         })
     ]),
 
-    dcc.Tab(label='**d. Avaliação do Modelo**', children=[
-        html.H3(" Métricas de Avaliação Utilizadas", style={'color': '#003366', 'fontWeight': 'bold'}),
+    dcc.Tab(label='d. Avaliação do Modelo', children=[
+        html.H3("Métricas de Avaliação Utilizadas", style={'color': '#003366', 'fontWeight': 'bold'}),
 
         html.Div([
             html.H4("1. RMSE - Raiz do Erro Quadrático Médio", style={'color': '#003366'}),
             html.P("A RMSE mede a média dos quadrados dos erros e penaliza fortemente grandes discrepâncias:"),
-            dcc.Markdown(r'''
-\\[
-RMSE = \\sqrt{\\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)^2}
-\\]
-''')
+            html.Div("$$RMSE = \\sqrt{\\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)^2}$$")
         ], style={'border': '2px solid #ccc', 'padding': '15px', 'marginBottom': '20px'}),
 
         html.Div([
             html.H4("2. MAE - Erro Absoluto Médio", style={'color': '#003366'}),
             html.P("A MAE calcula a média dos erros absolutos entre os valores reais e os previstos:"),
-            dcc.Markdown(r'''
-\\[
-MAE = \\frac{1}{N} \\sum_{i=1}^{N} |y_i - \\hat{y}_i|
-\\]
-''')
+            html.Div("$$MAE = \\frac{1}{N} \\sum_{i=1}^{N} |y_i - \\hat{y}_i|$$")
         ], style={'border': '2px solid #ccc', 'padding': '15px', 'marginBottom': '20px'}),
 
         html.Div([
             html.H4("3. MBE - Erro Médio", style={'color': '#003366'}),
             html.P("O MBE indica o viés do modelo, mostrando se tende a superestimar ou subestimar:"),
-            dcc.Markdown(r'''
-\\[
-MBE = \\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)
-\\]
-''')
+            html.Div("$$MBE = \\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)$$")
         ], style={'border': '2px solid #ccc', 'padding': '15px', 'marginBottom': '20px'}),
 
         html.Div([
             html.H4("4. PIN - Índice de Previsão", style={'color': '#003366'}),
             html.P("O PIN avalia a precisão das previsões dentro de um limite de tolerância \\( \\delta \\):"),
-            dcc.Markdown(r'''
-\\[
-PIN = \\frac{1}{N} \\sum_{i=1}^{N} \\left( \\left| \\frac{y_i - \\hat{y}_i}{y_i} \\right| < \\delta \\right)
-\\]
-''')
+            html.Div("$$PIN = \\frac{1}{N} \\sum_{i=1}^{N} \\left( \\left| \\frac{y_i - \\hat{y}_i}{y_i} \\right| < \\delta \\right)$$")
         ], style={'border': '2px solid #ccc', 'padding': '15px'})
     ])
 ])
