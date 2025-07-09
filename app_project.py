@@ -191,14 +191,14 @@ fig_combined.update_layout(
 
 # Subpestañas de metodología
 subtabs_metodologia = dcc.Tabs([
-    dcc.Tab(label='a. Model Definition', children=[
-        html.H3("Definição do Problema a Resolver", style={'color': 'blue', 'fontWeight': 'bold'}),
+    dcc.Tab(label='**a. Model Definition**', children=[
+        html.H3(" Definição do Problema a Resolver", style={'color': '#003366', 'fontWeight': 'bold'}),
         html.Ul([
             html.Li("Tipo de problema: Séries temporais / Regressão."),
             html.Li("Variável alvo: \\( \\text{RADIACAO\\_GLOBAL\\_IMPUTADA} \\)")
         ]),
         html.Br(),
-        html.H3("Definição dos Modelos Utilizados", style={'color': 'blue', 'fontWeight': 'bold'}),
+        html.H3(" Definição dos Modelos Utilizados", style={'color': '#003366', 'fontWeight': 'bold'}),
 
         html.H4("1. SVR - Regressão por Vetores de Suporte"),
         dcc.Markdown(r'''
@@ -297,9 +297,9 @@ Exemplo de componente sazonal:
 s(t) = \\sum_{n=1}^{N} \\left[ a_n \\cos\\left( \\frac{2 \\pi n t}{P} \\right) + b_n \\sin\\left( \\frac{2 \\pi n t}{P} \\right) \\right]
 \\]
 ''')
-    ], style={'color': 'blue', 'fontWeight': 'bold'}),
+    ]),
 
-    dcc.Tab(label='b. Data Preparation', children=[
+    dcc.Tab(label='**b. Data Preparation**', children=[
         html.Img(src="/figures/Train_model.png", style={
             "width": "90%",
             "marginTop": "20px",
@@ -308,9 +308,9 @@ s(t) = \\sum_{n=1}^{N} \\left[ a_n \\cos\\left( \\frac{2 \\pi n t}{P} \\right) +
             "marginLeft": "auto",
             "marginRight": "auto"
         })
-    ], style={'color': 'blue', 'fontWeight': 'bold'}),
+    ]),
 
-    dcc.Tab(label='c. Implementation', children=[
+    dcc.Tab(label='**c. Implementation**', children=[
         html.Img(src="/figures/esquema_stacked.png", style={
             "width": "90%",
             "marginTop": "20px",
@@ -319,52 +319,52 @@ s(t) = \\sum_{n=1}^{N} \\left[ a_n \\cos\\left( \\frac{2 \\pi n t}{P} \\right) +
             "marginLeft": "auto",
             "marginRight": "auto"
         })
-    ], style={'color': 'blue', 'fontWeight': 'bold'}),
+    ]),
 
-    dcc.Tab(label='d. Avaliação do Modelo', children=[
-        html.H4("Métricas de Avaliação Utilizadas", style={'color': 'blue', 'fontWeight': 'bold'}),
+    dcc.Tab(label='**d. Avaliação do Modelo**', children=[
+        html.H3(" Métricas de Avaliação Utilizadas", style={'color': '#003366', 'fontWeight': 'bold'}),
 
-        html.H5("1. RMSE - Raiz do Erro Quadrático Médio"),
-        dcc.Markdown(r'''
-A RMSE mede a média dos quadrados dos erros e penaliza fortemente grandes discrepâncias:
-
+        html.Div([
+            html.H4("1. RMSE - Raiz do Erro Quadrático Médio", style={'color': '#003366'}),
+            html.P("A RMSE mede a média dos quadrados dos erros e penaliza fortemente grandes discrepâncias:"),
+            dcc.Markdown(r'''
 \\[
-RMSE = \\sqrt{ \\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)^2 }
+RMSE = \\sqrt{\\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)^2}
 \\]
-'''),
+''')
+        ], style={'border': '2px solid #ccc', 'padding': '15px', 'marginBottom': '20px'}),
 
-        html.H5("2. MAE - Erro Absoluto Médio"),
-        dcc.Markdown(r'''
-A MAE calcula a média dos erros absolutos entre os valores reais e os previstos:
-
+        html.Div([
+            html.H4("2. MAE - Erro Absoluto Médio", style={'color': '#003366'}),
+            html.P("A MAE calcula a média dos erros absolutos entre os valores reais e os previstos:"),
+            dcc.Markdown(r'''
 \\[
 MAE = \\frac{1}{N} \\sum_{i=1}^{N} |y_i - \\hat{y}_i|
 \\]
-'''),
+''')
+        ], style={'border': '2px solid #ccc', 'padding': '15px', 'marginBottom': '20px'}),
 
-        html.H5("3. MBE - Erro Médio"),
-        dcc.Markdown(r'''
-O MBE indica o viés do modelo, mostrando se tende a superestimar ou subestimar:
-
+        html.Div([
+            html.H4("3. MBE - Erro Médio", style={'color': '#003366'}),
+            html.P("O MBE indica o viés do modelo, mostrando se tende a superestimar ou subestimar:"),
+            dcc.Markdown(r'''
 \\[
 MBE = \\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)
 \\]
-'''),
-
-        html.H5("4. PIN - Índice de Previsão"),
-        dcc.Markdown(r'''
-O PIN avalia a precisão das previsões dentro de um limite de tolerância \\( \\delta \\):
-
-\\[
-PIN = \\frac{1}{N} \\sum_{i=1}^{N} I\\left( \\left| \\frac{y_i - \\hat{y}_i}{y_i} \\right| < \\delta \\right)
-\\]
-
-Onde \\( I(\\cdot) \\) é a função indicadora.
 ''')
-    ], style={'color': 'blue', 'fontWeight': 'bold'})
+        ], style={'border': '2px solid #ccc', 'padding': '15px', 'marginBottom': '20px'}),
+
+        html.Div([
+            html.H4("4. PIN - Índice de Previsão", style={'color': '#003366'}),
+            html.P("O PIN avalia a precisão das previsões dentro de um limite de tolerância \\( \\delta \\):"),
+            dcc.Markdown(r'''
+\\[
+PIN = \\frac{1}{N} \\sum_{i=1}^{N} \\left( \\left| \\frac{y_i - \\hat{y}_i}{y_i} \\right| < \\delta \\right)
+\\]
+''')
+        ], style={'border': '2px solid #ccc', 'padding': '15px'})
+    ])
 ])
-
-
 # ──────────────────────────────────────────────────────────────────────
 subtabs_resultados = dcc.Tabs(
     [
