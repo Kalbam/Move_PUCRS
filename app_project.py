@@ -192,23 +192,23 @@ fig_combined.update_layout(
 # Subpestañas de metodología
 subtabs_metodologia = dcc.Tabs([
     dcc.Tab(label='a. Model Definition', children=[
-        html.H3("Definición del Problema a Resolver"),
-        html.Ul([
-            html.Li("Tipo de problema: Series de tiempo / Regresión."),
-            html.Li("Variable objetivo: \\( \\text{RADIACAO\\_GLOBAL\\_IMPUTADA} \\)")
-        ]),
-        html.Br(),
-        html.H3("Definición de los Modelos Utilizados"),
+    html.H3("Definição do Problema a Resolver"),
+    html.Ul([
+        html.Li("Tipo de problema: Séries temporais / Regressão."),
+        html.Li("Variável alvo: \\( \\text{RADIACAO\\_GLOBAL\\_IMPUTADA} \\)")
+    ]),
+    html.Br(),
+    html.H3("Definição dos Modelos Utilizados"),
 
-        html.H4("1. SVR - Support Vector Regression"),
-        dcc.Markdown(r'''
-El modelo SVR busca encontrar una función \\( f(x) \\) tal que las predicciones estén dentro de una tolerancia \\( \\varepsilon \\) del valor real:
+    html.H4("1. SVR - Regressão por Vetores de Suporte"),
+    dcc.Markdown(r'''
+O modelo SVR busca encontrar uma função \\( f(x) \\) tal que as previsões estejam dentro de uma tolerância \\( \\varepsilon \\) do valor real:
 
 \\[
 f(x) = \\langle w, x \\rangle + b
 \\]
 
-sujeto a:
+Sujeito a:
 
 \\[
 \\begin{cases}
@@ -217,55 +217,55 @@ f(x_i) - y_i \\leq \\varepsilon + \\xi_i^*
 \\end{cases}
 \\]
 
-Donde \\( \\xi_i, \\xi_i^* \\) son variables de holgura y \\( C \\) es un parámetro de penalización para errores fuera del margen \\( \\varepsilon \\).
-        '''),
+Onde \\( \\xi_i, \\xi_i^* \\) são variáveis de folga e \\( C \\) é um parâmetro de penalização para erros fora da margem \\( \\varepsilon \\).
+'''),
 
-        html.H4("2. ANN - Artificial Neural Network"),
-        dcc.Markdown(r'''
-Una red neuronal simple realiza una transformación del tipo:
+    html.H4("2. ANN - Rede Neural Artificial"),
+    dcc.Markdown(r'''
+Uma rede neural realiza uma transformação do tipo:
 
 \\[
 y = f\\left( \\sum_{i=1}^n w_i x_i + b \\right)
 \\]
 
-Donde:
+Onde:
 - \\( x_i \\): entradas,
-- \\( w_i \\): pesos sinápticos,
-- \\( b \\): sesgo,
-- \\( f \\): función de activación (ReLU, tanh, sigmoid).
+- \\( w_i \\): pesos,
+- \\( b \\): viés (bias),
+- \\( f \\): função de ativação (ReLU, tanh, sigmoide).
 
-Se entrena minimizando una función de pérdida como:
+Durante o treinamento, minimiza-se uma função de perda, por exemplo:
 
 \\[
 \\text{MSE} = \\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2
 \\]
-        '''),
+'''),
 
-        html.H4("3. ARIMA - AutoRegressive Integrated Moving Average"),
-        dcc.Markdown(r'''
-El modelo ARIMA \\( (p, d, q) \\) combina autorregresión, diferenciación e promedio móvil:
+    html.H4("3. ARIMA - AutoRegressivo Integrado de Médias Móveis"),
+    dcc.Markdown(r'''
+O modelo ARIMA \\( (p, d, q) \\) combina autorregressão, diferenciação e média móvel:
 
 \\[
 y_t = c + \\phi_1 y_{t-1} + \\cdots + \\phi_p y_{t-p} + \\theta_1 \\varepsilon_{t-1} + \\cdots + \\theta_q \\varepsilon_{t-q} + \\varepsilon_t
 \\]
 
-Donde:
-- \\( d \\): número de diferenciaciones necesarias para la estacionariedad,
+Onde:
+- \\( d \\): número de diferenciações necessárias para estacionariedade,
 - \\( \\phi_i \\): coeficientes AR,
 - \\( \\theta_j \\): coeficientes MA.
-        '''),
+'''),
 
-        html.H4("4. ETS - Error, Trend, Seasonality"),
-        dcc.Markdown(r'''
-ETS descompone la serie en:
+    html.H4("4. ETS - Erro, Tendência e Sazonalidade"),
+    dcc.Markdown(r'''
+ETS decompõe a série temporal em:
 
 \\[
 Y_t = (E_t)(T_t)(S_t)
-\\quad \\text{o} \\quad
+\\quad \\text{ou} \\quad
 Y_t = E_t + T_t + S_t
 \\]
 
-Dependiendo del tipo (multiplicativo o aditivo). Un modelo ETS aditivo puede representarse como:
+Dependendo do tipo (multiplicativo ou aditivo). Um modelo ETS aditivo pode ser representado como:
 
 \\[
 \\begin{cases}
@@ -275,29 +275,28 @@ s_t = \\gamma (y_t - l_{t-1} - b_{t-1}) + (1 - \\gamma)s_{t-m} \\\\
 \\hat{y}_{t+h} = l_t + hb_t + s_{t-m+h}
 \\end{cases}
 \\]
-        '''),
+'''),
 
-        html.H4("5. Prophet - Additive Forecasting Model"),
-        dcc.Markdown(r'''
-Prophet descompone la serie como:
+    html.H4("5. Prophet - Modelo de Previsão Aditivo"),
+    dcc.Markdown(r'''
+Prophet decompõe a série em:
 
 \\[
 y(t) = g(t) + s(t) + h(t) + \\varepsilon_t
 \\]
 
-Donde:
-- \\( g(t) \\): tendencia (lineal o logística),
-- \\( s(t) \\): estacionalidad (modelada con series de Fourier),
-- \\( h(t) \\): efecto de días festivos,
-- \\( \\varepsilon_t \\): error.
+Onde:
+- \\( g(t) \\): tendência (linear ou logística),
+- \\( s(t) \\): sazonalidade (modelada com séries de Fourier),
+- \\( h(t) \\): efeito de feriados,
+- \\( \\varepsilon_t \\): erro.
 
-Ejemplo de componente estacional:
+Exemplo de componente sazonal:
 
 \\[
 s(t) = \\sum_{n=1}^{N} \\left[ a_n \\cos\\left( \\frac{2 \\pi n t}{P} \\right) + b_n \\sin\\left( \\frac{2 \\pi n t}{P} \\right) \\right]
 \\]
-        '''),
-    ])
+''')
 ])
     ]),
     dcc.Tab(label='b. Data Preparation', children=[
