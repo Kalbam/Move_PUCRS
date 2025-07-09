@@ -192,16 +192,16 @@ fig_combined.update_layout(
 # Subpestañas de metodología
 subtabs_metodologia = dcc.Tabs([
     dcc.Tab(label='a. Model Definition', children=[
-    html.H3("Definição do Problema a Resolver"),
-    html.Ul([
-        html.Li("Tipo de problema: Séries temporais / Regressão."),
-        html.Li("Variável alvo: \\( \\text{RADIACAO\\_GLOBAL\\_IMPUTADA} \\)")
-    ]),
-    html.Br(),
-    html.H3("Definição dos Modelos Utilizados"),
+        html.H3("Definição do Problema a Resolver", style={'color': 'blue', 'fontWeight': 'bold'}),
+        html.Ul([
+            html.Li("Tipo de problema: Séries temporais / Regressão."),
+            html.Li("Variável alvo: \\( \\text{RADIACAO\\_GLOBAL\\_IMPUTADA} \\)")
+        ]),
+        html.Br(),
+        html.H3("Definição dos Modelos Utilizados", style={'color': 'blue', 'fontWeight': 'bold'}),
 
-    html.H4("1. SVR - Regressão por Vetores de Suporte"),
-    dcc.Markdown(r'''
+        html.H4("1. SVR - Regressão por Vetores de Suporte"),
+        dcc.Markdown(r'''
 O modelo SVR busca encontrar uma função \\( f(x) \\) tal que as previsões estejam dentro de uma tolerância \\( \\varepsilon \\) do valor real:
 
 \\[
@@ -220,8 +220,8 @@ f(x_i) - y_i \\leq \\varepsilon + \\xi_i^*
 Onde \\( \\xi_i, \\xi_i^* \\) são variáveis de folga e \\( C \\) é um parâmetro de penalização para erros fora da margem \\( \\varepsilon \\).
 '''),
 
-    html.H4("2. ANN - Rede Neural Artificial"),
-    dcc.Markdown(r'''
+        html.H4("2. ANN - Rede Neural Artificial"),
+        dcc.Markdown(r'''
 Uma rede neural realiza uma transformação do tipo:
 
 \\[
@@ -241,8 +241,8 @@ Durante o treinamento, minimiza-se uma função de perda, por exemplo:
 \\]
 '''),
 
-    html.H4("3. ARIMA - AutoRegressivo Integrado de Médias Móveis"),
-    dcc.Markdown(r'''
+        html.H4("3. ARIMA - AutoRegressivo Integrado de Médias Móveis"),
+        dcc.Markdown(r'''
 O modelo ARIMA \\( (p, d, q) \\) combina autorregressão, diferenciação e média móvel:
 
 \\[
@@ -255,8 +255,8 @@ Onde:
 - \\( \\theta_j \\): coeficientes MA.
 '''),
 
-    html.H4("4. ETS - Erro, Tendência e Sazonalidade"),
-    dcc.Markdown(r'''
+        html.H4("4. ETS - Erro, Tendência e Sazonalidade"),
+        dcc.Markdown(r'''
 ETS decompõe a série temporal em:
 
 \\[
@@ -277,8 +277,8 @@ s_t = \\gamma (y_t - l_{t-1} - b_{t-1}) + (1 - \\gamma)s_{t-m} \\\\
 \\]
 '''),
 
-    html.H4("5. Prophet - Modelo de Previsão Aditivo"),
-    dcc.Markdown(r'''
+        html.H4("5. Prophet - Modelo de Previsão Aditivo"),
+        dcc.Markdown(r'''
 Prophet decompõe a série em:
 
 \\[
@@ -297,38 +297,73 @@ Exemplo de componente sazonal:
 s(t) = \\sum_{n=1}^{N} \\left[ a_n \\cos\\left( \\frac{2 \\pi n t}{P} \\right) + b_n \\sin\\left( \\frac{2 \\pi n t}{P} \\right) \\right]
 \\]
 ''')
-])
-    ]),
+    ], style={'color': 'blue', 'fontWeight': 'bold'}),
+
     dcc.Tab(label='b. Data Preparation', children=[
         html.Img(src="/figures/Train_model.png", style={
-        "width": "90%",
-        "marginTop": "20px",
-        "border": "1px solid #ccc",
-        "display": "block",
-        "marginLeft": "auto",
-        "marginRight": "auto"
-    })
-    ]),
+            "width": "90%",
+            "marginTop": "20px",
+            "border": "1px solid #ccc",
+            "display": "block",
+            "marginLeft": "auto",
+            "marginRight": "auto"
+        })
+    ], style={'color': 'blue', 'fontWeight': 'bold'}),
+
     dcc.Tab(label='c. Implementation', children=[
-        
         html.Img(src="/figures/esquema_stacked.png", style={
-        "width": "90%",
-        "marginTop": "20px",
-        "border": "1px solid #ccc",
-        "display": "block",
-        "marginLeft": "auto",
-        "marginRight": "auto"
-    })
-    ]),
-    dcc.Tab(label='d. Model Evaluation', children=[
-        html.H4('d. Entrenamiento y Evaluación del Modelo'),
-        html.Ul([
-            html.Li('Proceso de entrenamiento'),
-            html.Li('Métricas de evaluación: RMSE, MAE, Accuracy, etc.'),
-            html.Li('Validación utilizada')
-        ])
-    ])
+            "width": "90%",
+            "marginTop": "20px",
+            "border": "1px solid #ccc",
+            "display": "block",
+            "marginLeft": "auto",
+            "marginRight": "auto"
+        })
+    ], style={'color': 'blue', 'fontWeight': 'bold'}),
+
+    dcc.Tab(label='d. Avaliação do Modelo', children=[
+        html.H4("Métricas de Avaliação Utilizadas", style={'color': 'blue', 'fontWeight': 'bold'}),
+
+        html.H5("1. RMSE - Raiz do Erro Quadrático Médio"),
+        dcc.Markdown(r'''
+A RMSE mede a média dos quadrados dos erros e penaliza fortemente grandes discrepâncias:
+
+\\[
+RMSE = \\sqrt{ \\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)^2 }
+\\]
+'''),
+
+        html.H5("2. MAE - Erro Absoluto Médio"),
+        dcc.Markdown(r'''
+A MAE calcula a média dos erros absolutos entre os valores reais e os previstos:
+
+\\[
+MAE = \\frac{1}{N} \\sum_{i=1}^{N} |y_i - \\hat{y}_i|
+\\]
+'''),
+
+        html.H5("3. MBE - Erro Médio"),
+        dcc.Markdown(r'''
+O MBE indica o viés do modelo, mostrando se tende a superestimar ou subestimar:
+
+\\[
+MBE = \\frac{1}{N} \\sum_{i=1}^{N} (y_i - \\hat{y}_i)
+\\]
+'''),
+
+        html.H5("4. PIN - Índice de Previsão"),
+        dcc.Markdown(r'''
+O PIN avalia a precisão das previsões dentro de um limite de tolerância \\( \\delta \\):
+
+\\[
+PIN = \\frac{1}{N} \\sum_{i=1}^{N} I\\left( \\left| \\frac{y_i - \\hat{y}_i}{y_i} \\right| < \\delta \\right)
+\\]
+
+Onde \\( I(\\cdot) \\) é a função indicadora.
+''')
+    ], style={'color': 'blue', 'fontWeight': 'bold'})
 ])
+
 
 # ──────────────────────────────────────────────────────────────────────
 subtabs_resultados = dcc.Tabs(
