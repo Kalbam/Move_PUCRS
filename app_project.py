@@ -190,20 +190,6 @@ fig_combined.update_layout(
 
 
 # Subpestañas de metodología
-app.layout = html.Div([
-    # Cargar MathJax para Render
-    html.Script(src="https://polyfill.io/v3/polyfill.min.js?features=es6"),
-    html.Script(
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
-        id="MathJax-script",
-        **{"async": "async"}
-    ),
-
-    html.H1("Metodologia", style={'textAlign': 'center', 'color': '#003366'}),
-    subtabs_metodologia
-])
-
-# Subpestañas de metodología
 subtabs_metodologia = dcc.Tabs([
     dcc.Tab(label='a. Model Definition', children=[
         html.H3("Definição do Problema a Resolver", style={'color': '#003366', 'fontWeight': 'bold'}),
@@ -1275,6 +1261,18 @@ app.layout = dbc.Container(
     ],
     fluid=True
 )
+
+app.layout = html.Div([
+    html.Script(src="https://polyfill.io/v3/polyfill.min.js?features=es6"),
+    html.Script(
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
+        id="MathJax-script",
+        **{"async": "async"}
+    ),
+
+    html.H1("Metodologia", style={'textAlign': 'center', 'color': '#003366'}),
+    subtabs_metodologia
+])
 
 # ═══════════════════════════════════════════════════════════════════════
 # CALLBACK  • limpia, agrupa y dibuja
