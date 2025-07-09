@@ -531,7 +531,7 @@ dcc.Tab(
                 'boxShadow': '2px 2px 6px rgba(0,0,0,0.1)'
             }, children=[
                 html.Img(src='/figures/Sistemas_electricos.png',
-                         style={'width': '80%', 'height': 'auto'}),
+                         style={'width': '60%', 'height': 'auto'}),
                 html.P([html.Strong('Figure 1. '), 'Illustration of electrical systems'],
                        style={'fontSize': '115%', 'fontWeight': 'bold'}),
                 html.P('Source: Customized institutional image',
@@ -549,7 +549,7 @@ dcc.Tab(
                 'boxShadow': '2px 2px 6px rgba(0,0,0,0.1)'
             }, children=[
                 html.Img(src='/figures/Mapa_Br_Rad.png',
-                         style={'width': '80%', 'height': 'auto'}),
+                         style={'width': '60%', 'height': 'auto'}),
                 html.P([html.Strong('Figure 2. '), 'Solar Irradiation Map'],
                        style={'fontSize': '115%', 'fontWeight': 'bold'}),
                 html.P('Source: Brazil Solar Atlas, 2020',
@@ -567,7 +567,7 @@ dcc.Tab(
                 'boxShadow': '2px 2px 6px rgba(0,0,0,0.1)'
             }, children=[
                 html.Img(src='/figures/Mapa_Br_PHV.png',
-                         style={'width': '80%', 'height': 'auto'}),
+                         style={'width': '60%', 'height': 'auto'}),
                 html.P([html.Strong('Figure 3. '), 'Photovoltaic Potential Map'],
                        style={'fontSize': '115%', 'fontWeight': 'bold'}),
                 html.P('Source: Brazil Solar Atlas, 2020',
