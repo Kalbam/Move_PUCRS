@@ -193,7 +193,7 @@ fig_combined.update_layout(
 subtabs_metodologia = dcc.Tabs([
     dcc.Tab(label='a. Model Definition', children=[
         html.Img(src="/figures/ecuaciones.png", style={
-            "width": "80%",
+            "width": "60%",
             "marginTop": "20px",
             "border": "1px solid #ccc",
             "display": "block",
@@ -204,7 +204,7 @@ subtabs_metodologia = dcc.Tabs([
     ]),
     dcc.Tab(label='b. Técnica', children=[
         html.Img(src="/figures/staking.png", style={
-            "width": "70%",
+            "width": "50%",
             "marginTop": "20px",
             "border": "1px solid #ccc",
             "display": "block",
@@ -213,7 +213,7 @@ subtabs_metodologia = dcc.Tabs([
         })
      
     ]),
-    dcc.Tab(label='b. Data Preparation', children=[
+    dcc.Tab(label='c. Data Preparation', children=[
         html.Img(src="/figures/data.png", style={
             "width": "90%",
             "marginTop": "20px",
@@ -224,7 +224,7 @@ subtabs_metodologia = dcc.Tabs([
         })
     ]),
 
-    dcc.Tab(label='c. Implementation', children=[
+    dcc.Tab(label='d. Implementation', children=[
         html.Img(src="/figures/esquema_stacked.png", style={
             "width": "90%",
             "marginTop": "20px",
@@ -235,7 +235,7 @@ subtabs_metodologia = dcc.Tabs([
         })
     ]),
 
-    dcc.Tab(label='d. Avaliação do Modelo', children=[
+    dcc.Tab(label='e. Avaliação do Modelo', children=[
         html.Img(src="/figures/Errores.png", style={
             "width": "90%",
             "marginTop": "20px",
