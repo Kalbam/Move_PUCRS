@@ -192,6 +192,14 @@ fig_combined.update_layout(
 # Subpestañas de metodología
 subtabs_metodologia = dcc.Tabs([
     dcc.Tab(label='a. Model Definition', children=[
+        html.Img(src="/figures/esquema_stacked.png", style={
+            "width": "90%",
+            "marginTop": "20px",
+            "border": "1px solid #ccc",
+            "display": "block",
+            "marginLeft": "auto",
+            "marginRight": "auto"
+        })
      
     ]),
 
@@ -218,6 +226,14 @@ subtabs_metodologia = dcc.Tabs([
     ]),
 
     dcc.Tab(label='d. Avaliação do Modelo', children=[
+        html.Img(src="/figures/Errores.png", style={
+            "width": "90%",
+            "marginTop": "20px",
+            "border": "1px solid #ccc",
+            "display": "block",
+            "marginLeft": "auto",
+            "marginRight": "auto"
+        })
         
     ])
 ])
