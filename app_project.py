@@ -192,11 +192,113 @@ fig_combined.update_layout(
 # Subpestañas de metodología
 subtabs_metodologia = dcc.Tabs([
     dcc.Tab(label='a. Model Definition', children=[
-        html.H4('a. Definición del Problema a Resolver'),
+        html.H3("Definición del Problema a Resolver"),
         html.Ul([
-            html.Li('Tipo de problema: clasificación / regresión / agrupamiento / series de tiempo'),
-            html.Li('Variable objetivo o de interés: Nombre de la variable')
-        ])
+            html.Li("Tipo de problema: Series de tiempo / Regresión."),
+            html.Li("Variable objetivo: \\( \\text{RADIACAO\\_GLOBAL\\_IMPUTADA} \\)")
+        ]),
+        html.Br(),
+        html.H3("Definición de los Modelos Utilizados"),
+
+        html.H4("1. SVR - Support Vector Regression"),
+        dcc.Markdown(r'''
+El modelo SVR busca encontrar una función \\( f(x) \\) tal que las predicciones estén dentro de una tolerancia \\( \\varepsilon \\) del valor real:
+
+\\[
+f(x) = \\langle w, x \\rangle + b
+\\]
+
+sujeto a:
+
+\\[
+\\begin{cases}
+y_i - f(x_i) \\leq \\varepsilon + \\xi_i \\\\
+f(x_i) - y_i \\leq \\varepsilon + \\xi_i^*
+\\end{cases}
+\\]
+
+Donde \\( \\xi_i, \\xi_i^* \\) son variables de holgura y \\( C \\) es un parámetro de penalización para errores fuera del margen \\( \\varepsilon \\).
+        '''),
+
+        html.H4("2. ANN - Artificial Neural Network"),
+        dcc.Markdown(r'''
+Una red neuronal simple realiza una transformación del tipo:
+
+\\[
+y = f\\left( \\sum_{i=1}^n w_i x_i + b \\right)
+\\]
+
+Donde:
+- \\( x_i \\): entradas,
+- \\( w_i \\): pesos sinápticos,
+- \\( b \\): sesgo,
+- \\( f \\): función de activación (ReLU, tanh, sigmoid).
+
+Se entrena minimizando una función de pérdida como:
+
+\\[
+\\text{MSE} = \\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2
+\\]
+        '''),
+
+        html.H4("3. ARIMA - AutoRegressive Integrated Moving Average"),
+        dcc.Markdown(r'''
+El modelo ARIMA \\( (p, d, q) \\) combina autorregresión, diferenciación e promedio móvil:
+
+\\[
+y_t = c + \\phi_1 y_{t-1} + \\cdots + \\phi_p y_{t-p} + \\theta_1 \\varepsilon_{t-1} + \\cdots + \\theta_q \\varepsilon_{t-q} + \\varepsilon_t
+\\]
+
+Donde:
+- \\( d \\): número de diferenciaciones necesarias para la estacionariedad,
+- \\( \\phi_i \\): coeficientes AR,
+- \\( \\theta_j \\): coeficientes MA.
+        '''),
+
+        html.H4("4. ETS - Error, Trend, Seasonality"),
+        dcc.Markdown(r'''
+ETS descompone la serie en:
+
+\\[
+Y_t = (E_t)(T_t)(S_t)
+\\quad \\text{o} \\quad
+Y_t = E_t + T_t + S_t
+\\]
+
+Dependiendo del tipo (multiplicativo o aditivo). Un modelo ETS aditivo puede representarse como:
+
+\\[
+\\begin{cases}
+l_t = \\alpha (y_t - s_{t-m}) + (1 - \\alpha)(l_{t-1} + b_{t-1}) \\\\
+b_t = \\beta (l_t - l_{t-1}) + (1 - \\beta)b_{t-1} \\\\
+s_t = \\gamma (y_t - l_{t-1} - b_{t-1}) + (1 - \\gamma)s_{t-m} \\\\
+\\hat{y}_{t+h} = l_t + hb_t + s_{t-m+h}
+\\end{cases}
+\\]
+        '''),
+
+        html.H4("5. Prophet - Additive Forecasting Model"),
+        dcc.Markdown(r'''
+Prophet descompone la serie como:
+
+\\[
+y(t) = g(t) + s(t) + h(t) + \\varepsilon_t
+\\]
+
+Donde:
+- \\( g(t) \\): tendencia (lineal o logística),
+- \\( s(t) \\): estacionalidad (modelada con series de Fourier),
+- \\( h(t) \\): efecto de días festivos,
+- \\( \\varepsilon_t \\): error.
+
+Ejemplo de componente estacional:
+
+\\[
+s(t) = \\sum_{n=1}^{N} \\left[ a_n \\cos\\left( \\frac{2 \\pi n t}{P} \\right) + b_n \\sin\\left( \\frac{2 \\pi n t}{P} \\right) \\right]
+\\]
+        '''),
+    ])
+])
     ]),
     dcc.Tab(label='b. Data Preparation', children=[
         html.Img(src="/figures/Train_model.png", style={
