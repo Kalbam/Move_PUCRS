@@ -193,7 +193,7 @@ fig_combined.update_layout(
 subtabs_metodologia = dcc.Tabs([
     dcc.Tab(label='a. Model Definition', children=[
         html.Img(src="/figures/ecuaciones.png", style={
-            "width": "90%",
+            "width": "80%",
             "marginTop": "20px",
             "border": "1px solid #ccc",
             "display": "block",
@@ -204,7 +204,7 @@ subtabs_metodologia = dcc.Tabs([
     ]),
     dcc.Tab(label='b. Técnica', children=[
         html.Img(src="/figures/staking.png", style={
-            "width": "90%",
+            "width": "70%",
             "marginTop": "20px",
             "border": "1px solid #ccc",
             "display": "block",
