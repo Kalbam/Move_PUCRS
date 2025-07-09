@@ -192,73 +192,7 @@ fig_combined.update_layout(
 # Subpestañas de metodología
 subtabs_metodologia = dcc.Tabs([
     dcc.Tab(label='a. Model Definition', children=[
-        html.H3("Definição do Problema a Resolver", style={'color': '#003366', 'fontWeight': 'bold'}),
-        html.Ul([
-            html.Li("Tipo de problema: Séries temporais / Regressão."),
-            html.Li("Variável alvo: RADIACAO_GLOBAL_IMPUTADA")
-        ]),
-        html.Br(),
-        html.H3("Definição dos Modelos Utilizados", style={'color': '#003366', 'fontWeight': 'bold'}),
-
-        html.H4("1. SVR - Regressão por Vetores de Suporte", style={'color': '#003366'}),
-        dcc.Markdown(r'''
-\\[
-f(x) = \langle w, x \rangle + b
-\\]
-
-Sujeito a:
-
-\\[
-\begin{cases}
-y_i - f(x_i) \leq \varepsilon + \xi_i \\
-f(x_i) - y_i \leq \varepsilon + \xi_i^*
-\end{cases}
-\\]
-Onde \( \xi_i, \xi_i^* \) são variáveis de folga e \( C \) é um parâmetro de penalização para erros fora da margem \( \varepsilon \).
-'''),
-
-        html.H4("2. ANN - Rede Neural Artificial", style={'color': '#003366'}),
-        dcc.Markdown(r'''
-\\[
-y = f\left( \sum_{i=1}^n w_i x_i + b \right)
-\\]
-
-Durante o treinamento, minimiza-se uma função de perda, por exemplo:
-
-\\[
-\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
-\\]
-'''),
-
-        html.H4("3. ARIMA - AutoRegressivo Integrado de Médias Móveis", style={'color': '#003366'}),
-        dcc.Markdown(r'''
-\\[
-y_t = c + \phi_1 y_{t-1} + \cdots + \phi_p y_{t-p} + \theta_1 \varepsilon_{t-1} + \cdots + \theta_q \varepsilon_{t-q} + \varepsilon_t
-\\]
-'''),
-
-        html.H4("4. ETS - Erro, Tendência e Sazonalidade", style={'color': '#003366'}),
-        dcc.Markdown(r'''
-\\[
-\begin{cases}
-l_t = \alpha (y_t - s_{t-m}) + (1 - \alpha)(l_{t-1} + b_{t-1}) \\
-b_t = \beta (l_t - l_{t-1}) + (1 - \beta)b_{t-1} \\
-s_t = \gamma (y_t - l_{t-1} - b_{t-1}) + (1 - \gamma)s_{t-m} \\
-\hat{y}_{t+h} = l_t + hb_t + s_{t-m+h}
-\end{cases}
-\\]
-'''),
-
-        html.H4("5. Prophet - Modelo de Previsão Aditivo", style={'color': '#003366'}),
-        dcc.Markdown(r'''
-\\[
-y(t) = g(t) + s(t) + h(t) + \varepsilon_t
-\\]
-
-\\[
-s(t) = \sum_{n=1}^{N} \left[ a_n \cos\left( \frac{2 \pi n t}{P} \right) + b_n \sin\left( \frac{2 \pi n t}{P} \right) \right]
-\\]
-''')
+     
     ]),
 
     dcc.Tab(label='b. Data Preparation', children=[
@@ -284,47 +218,7 @@ s(t) = \sum_{n=1}^{N} \left[ a_n \cos\left( \frac{2 \pi n t}{P} \right) + b_n \s
     ]),
 
     dcc.Tab(label='d. Avaliação do Modelo', children=[
-        html.H3("Métricas de Avaliação Utilizadas", style={'color': '#003366', 'fontWeight': 'bold'}),
-
-        html.Div([
-            html.H4("1. RMSE - Raiz do Erro Quadrático Médio", style={'color': '#003366'}),
-            html.P("A RMSE mede a média dos quadrados dos erros e penaliza fortemente grandes discrepâncias:"),
-            dcc.Markdown(r'''
-\\[
-RMSE = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2}
-\\]
-''')
-        ], style={'border': '2px solid #ccc', 'padding': '15px', 'marginBottom': '20px'}),
-
-        html.Div([
-            html.H4("2. MAE - Erro Absoluto Médio", style={'color': '#003366'}),
-            html.P("A MAE calcula a média dos erros absolutos entre os valores reais e os previstos:"),
-            dcc.Markdown(r'''
-\\[
-MAE = \frac{1}{N} \sum_{i=1}^{N} |y_i - \hat{y}_i|
-\\]
-''')
-        ], style={'border': '2px solid #ccc', 'padding': '15px', 'marginBottom': '20px'}),
-
-        html.Div([
-            html.H4("3. MBE - Erro Médio", style={'color': '#003366'}),
-            html.P("O MBE indica o viés do modelo, mostrando se tende a superestimar ou subestimar:"),
-            dcc.Markdown(r'''
-\\[
-MBE = \frac{1}{N} \sum_{i=1}^{N} (y_i - \hat{y}_i)
-\\]
-''')
-        ], style={'border': '2px solid #ccc', 'padding': '15px', 'marginBottom': '20px'}),
-
-        html.Div([
-            html.H4("4. PIN - Índice de Previsão", style={'color': '#003366'}),
-            html.P("O PIN avalia a precisão das previsões dentro de um limite de tolerância \\( \\delta \\):"),
-            dcc.Markdown(r'''
-\\[
-PIN = \frac{1}{N} \sum_{i=1}^{N} \left( \left| \frac{y_i - \hat{y}_i}{y_i} \right| < \delta \right)
-\\]
-''')
-        ], style={'border': '2px solid #ccc', 'padding': '15px'})
+        
     ])
 ])
 # ──────────────────────────────────────────────────────────────────────
