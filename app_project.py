@@ -202,7 +202,17 @@ subtabs_metodologia = dcc.Tabs([
         })
      
     ]),
-    
+    dcc.Tab(label='b. Técnicas', children=[
+        html.Img(src="/figures/ecuaciones.png", style={
+            "width": "90%",
+            "marginTop": "20px",
+            "border": "1px solid #ccc",
+            "display": "block",
+            "marginLeft": "auto",
+            "marginRight": "auto"
+        })
+     
+    ]),
     dcc.Tab(label='b. Data Preparation', children=[
         html.Img(src="/figures/Train_model.png", style={
             "width": "90%",
